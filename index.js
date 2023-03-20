@@ -1,12 +1,11 @@
-var native = require("./build/Release/diskusage.node");
-var promise = typeof Promise !== "undefined" ? Promise : require("es6-promise").Promise;
+const native = require('./build/Release/diskusage.node');
 
-exports.check = function(path, callback) {
+exports.check = function (path, callback) {
   if (callback) {
     return check(path, callback);
   }
 
-  return new promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
     check(path, function (err, result) {
       err ? reject(err) : resolve(result);
     });
@@ -16,8 +15,8 @@ exports.check = function(path, callback) {
 exports.checkSync = native.getDiskUsage;
 
 function check(path, callback) {
-  var result = undefined;
-  var error = undefined;
+  let result = undefined;
+  let error = undefined;
 
   try {
     result = native.getDiskUsage(path);
