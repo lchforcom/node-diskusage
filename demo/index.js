@@ -1,7 +1,7 @@
-const { check, checkSync } = require("../");
-const os = require("os");
+const { check, checkSync } = require('../');
+const process = require('process');
 
-const targetPath = os.platform() === "win32" ? "c:" : "/";
+const targetPath = process.platform === 'win32' ? 'c:' : '/';
 
 function printResults(type, { available, free, total }) {
   console.log(`${type}
@@ -14,7 +14,7 @@ function printResults(type, { available, free, total }) {
 async function getFreeSpacePromise(path) {
   try {
     const info = await check(path);
-    printResults("PROMISE", info);
+    printResults('PROMISE', info);
   } catch (err) {
     console.error(err);
   }
@@ -25,14 +25,14 @@ function getFreeSpaceCallback(path) {
     if (err) {
       console.error(err);
     } else {
-      printResults("CALLBACK", info);
+      printResults('CALLBACK', info);
     }
   });
 }
 
 function getFreeSpaceSync(path) {
   const info = checkSync(path);
-  printResults("SYNC", info);
+  printResults('SYNC', info);
 }
 
 async function start() {
@@ -41,4 +41,4 @@ async function start() {
   getFreeSpaceSync(targetPath);
 }
 
-start()
+start();
